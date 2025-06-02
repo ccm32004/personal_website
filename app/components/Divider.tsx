@@ -9,11 +9,13 @@ export default function Divider() {
         initial={{ scaleX: 0 }}
         animate={{
           scaleX: 1,
+          opacity: [0.4, 1, 0.4],
           boxShadow: ['0 0 10px #00FFF5', '0 0 20px #00FFF5', '0 0 10px #00FFF5'],
         }}
         transition={{
-          duration: 1.5,
-          ease: 'easeInOut',
+          duration: 2,
+          repeatType: "mirror",
+          ease: "easeInOut",
         }}
       />
     </div>
