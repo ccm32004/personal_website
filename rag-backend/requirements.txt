@@ -1,6 +1,6 @@
 fastapi
 uvicorn
-chromadb
+pinecone
 sentence-transformers
 httpx
 python-dotenv 

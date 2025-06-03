@@ -1,19 +1,12 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-import chromadb
-from chromadb.utils import embedding_functions
-import os
-from dotenv import load_dotenv
+from pinecone import Pinecone, ServerlessSpec
+from sentence_transformers import SentenceTransformer
 import httpx
-
-# Load environment variables
-load_dotenv()
-
-# Check for DI API token
-DEEPINFRA_API_TOKEN = os.getenv("DEEPINFRA_API_TOKEN")
-if not DEEPINFRA_API_TOKEN:
-    raise ValueError("DEEPINFRA_API_TOKEN not found in environment variables")
+from rate_limiter import RateLimiter
+import config
+import os
 
 # Initialize FastAPI app
 app = FastAPI(title="Cece's Portfolio RAG API")
@@ -21,99 +14,112 @@ app = FastAPI(title="Cece's Portfolio RAG API")
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Next.js dev server
+    allow_origins=config.ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Initialize ChromaDB
-client = chromadb.PersistentClient(path="./chroma_store")
-embedding_fn = embedding_functions.SentenceTransformerEmbeddingFunction(
-    model_name="all-MiniLM-L6-v2"
+# Initialize rate limiter
+rate_limiter = RateLimiter(
+    window=config.RATE_LIMIT_WINDOW,
+    max_requests=config.RATE_LIMIT_MAX_REQUESTS
 )
-collection = client.get_collection("cece-knowledge")
 
-# Initialize HTTP client for Hugging Face
-di_client = httpx.AsyncClient(timeout=30.0)  # 30 second timeout
-DI_API_URL = "https://api.deepinfra.com/v1/inference/mistralai/Mistral-7B-Instruct-v0.3"
+# Initialize Pinecone client (v3)
+print("Initializing Pinecone...")
+pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
 
+index_name = os.getenv("PINECONE_INDEX_NAME")
+region = os.getenv("PINECONE_ENV")
+
+# Create index if it doesn't exist
+if index_name not in pc.list_indexes().names():
+    print(f"Creating index '{index_name}'...")
+    pc.create_index(
+        name=index_name,
+        dimension=384,  # Assuming you're using MiniLM
+        metric="cosine",
+        spec=ServerlessSpec(cloud="gcp", region=region)
+    )
+
+# Connect to index
+index = pc.Index(index_name)
+
+# Initialize embedding model
+model = SentenceTransformer(config.EMBEDDING_MODEL)
+
+# Initialize async DeepInfra client
+di_client = httpx.AsyncClient(timeout=30.0)
 
 class Query(BaseModel):
     query: str
 
 def create_prompt(query: str, context_chunks: list[str]) -> str:
-    # Combine context chunks
     context = "\n\n".join(context_chunks)
-    
-    # Create Mistral instruction prompt
-    prompt = f"""[INST] You are Cece's AI chatbot, CeceBot. You answer questions about Cece's life, skills, and projects. Using ONLY the following context, answer the question.
+    return f"""[INST] You are Cece's AI chatbot, CeceBot. You answer questions about Cece's life, skills, and projects. Using ONLY the following context, answer the question.
 
 Respond in a formal yet fabulously yassified manner — polished, articulate, but with a hint of glam. If you do not have enough information to answer based on the context, say:
 
-"I don’t have enough information to answer that question. ✨"
+"I don't have enough information to answer that question. ✨"
 
-Maintain clarity, poise, and a confident tone. Remember: we’re serving facts with a touch of flair. 💅📚"
+Maintain clarity, poise, and a confident tone. Remember: we're serving facts with a touch of flair. 💅📚"
 
 Context:
 {context}
 
 Question: {query}
 [/INST]"""
-    
-    return prompt
 
 async def query_mistral(prompt: str) -> str:
     headers = {
-        "Authorization": f"Bearer {DEEPINFRA_API_TOKEN}",
+        "Authorization": f"Bearer {config.DEEPINFRA_API_TOKEN}",
         "Content-Type": "application/json"
     }
 
     try:
         response = await di_client.post(
-            DI_API_URL,
+            config.DI_API_URL,
             headers=headers,
             json={
-                "input": f"<s>{prompt} [/INST]",  # Mistral prefers [INST] format
+                "input": f"<s>{prompt} [/INST]",
                 "stop": ["</s>"],
                 "temperature": 0.7,
                 "max_new_tokens": 500
             }
         )
         response.raise_for_status()
-        result = response.json()
-
-        # ✅ Parse correct field from DeepInfra
-        return result["results"][0]["generated_text"].strip()
+        return response.json()["results"][0]["generated_text"].strip()
 
     except httpx.HTTPError as e:
         raise HTTPException(status_code=500, detail=f"DeepInfra API error: {str(e)}")
 
-
 @app.post("/query")
-async def query_endpoint(query: Query):
+async def query_endpoint(query: Query, request: Request):
+    rate_limiter.check(request.client.host)
+
     try:
-        # Get relevant chunks from ChromaDB
-        results = collection.query(
-            query_texts=[query.query],
-            n_results=3
+        query_embedding = model.encode(query.query).tolist()
+
+        query_response = index.query(
+            vector=query_embedding,
+            top_k=3,
+            include_metadata=True
         )
-        
-        # Extract matched documents
-        context_chunks = results['documents'][0]
-        
-        # Create prompt with context
+
+        context_chunks = [match["metadata"]["text"] for match in query_response["matches"]]
+
         prompt = create_prompt(query.query, context_chunks)
-        
-        # Query Mistral model
         response = await query_mistral(prompt)
-        
+
         return {
             "answer": response,
             "context_chunks": context_chunks
         }
-        
+
     except Exception as e:
+        if isinstance(e, HTTPException):
+            raise e
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.on_event("shutdown")
