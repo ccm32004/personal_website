@@ -20,7 +20,7 @@ export const projects: Project[] = [
       "Python",
       "FastAPI",
       "MiniLM",
-      "ChromaDB",
+      "Pinecone",
     ],
     featured: true,
   },
@@ -74,7 +74,7 @@ export const projects: Project[] = [
   {
     title: 'Rate My Study Space',
     description:
-      'Dynamic site for reviewing campus study spots. Designed in Figma and deployed with AWS DynamoDB. Winner at UOttaHack.',
+      'Dynamic site for reviewing campus study spots. Winner at UOttaHack.',
     githubUrl: 'https://github.com/yourusername/rate-my-study-space',
     technologies: ['HTML', 'Bootstrap', 'JavaScript', 'AWS DynamoDB'],
     featured: false,

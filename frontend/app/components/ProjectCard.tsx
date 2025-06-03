@@ -116,152 +116,137 @@ const CyberpunkIcon = ({ tech }: { tech: string[] }) => {
 export default function ProjectCard({ project, index }: ProjectCardProps) {
   return (
     <motion.div
-      className="group bg-cyber-darker relative h-[480px] w-full overflow-hidden rounded-lg"
+      className="relative"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      whileHover={{ y: -5 }}
     >
-      {/* Header Section - Either Image or Decorative */}
-      <div className="relative h-56">
-        {project.image ? (
-          // Image with overlay
-          <>
-            <Image
-              src={project.image}
-              alt={project.title}
-              fill
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            />
-            {/* Multi-layer overlay for enhanced ombre effect */}
-            <div className="absolute inset-0">
-              {/* Top glow */}
-              <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-neon-purple/10 to-transparent" />
-              
-              {/* Bottom darker gradient - reduced opacity */}
-              <div className="absolute inset-x-0 bottom-0 h-full bg-gradient-to-t from-cyber-darker/60 via-transparent to-transparent" />
-              
-              {/* Subtle side vignette - reduced opacity */}
-              <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-cyber-darker/20 to-transparent" />
-              <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-cyber-darker/20 to-transparent" />
-              
-              {/* Additional cyberpunk effect on hover */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-tr from-neon-purple/0 via-neon-blue/0 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-10"
-                initial={false}
-                animate={{
-                  backgroundPosition: ['0% 0%', '100% 100%'],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  repeatType: 'reverse',
-                }}
-                style={{
-                  backgroundSize: '200% 200%',
-                }}
-              />
-            </div>
-          </>
-        ) : (
-          // Decorative Header with new CyberpunkIcon
-          <>
-            {/* Animated gradient background */}
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-br from-neon-blue/20 via-neon-purple/20 to-neon-pink/20"
-              animate={{
-                backgroundPosition: ['0% 0%', '100% 100%'],
-              }}
-              transition={{
-                duration: 10,
-                repeat: Infinity,
-                repeatType: 'reverse',
-                ease: 'linear',
-              }}
-              style={{
-                backgroundSize: '200% 200%',
-              }}
-            />
-            
-            {/* New Cyberpunk Icon */}
-            <CyberpunkIcon tech={project.technologies} />
+      {/* Card container with hover effect */}
+      <motion.div
+        className="group relative"
+        whileHover={{ y: -8 }}
+        transition={{ duration: 0.2 }}
+      >
+        {/* Shadow that grows on hover */}
+        <motion.div
+          className="absolute -inset-1 rounded-lg bg-gradient-to-r from-neon-purple/30 via-neon-blue/30 to-neon-purple/30 opacity-0 blur-lg transition-opacity duration-500 group-hover:opacity-100"
+          style={{ zIndex: 0 }}
+        />
+        
+        {/* Main card content */}
+        <div className="bg-cyber-darker relative z-10 h-[480px] w-full overflow-hidden rounded-lg">
+          {/* Header Section - Either Image or Decorative */}
+          <div className="relative h-56">
+          {project.image ? (
+  // Image with synchronized overlay
+  <>
+    <div className="absolute inset-0 transition-transform duration-500 ease-out group-hover:scale-[1.02]">
+      {/* Image */}
+      <Image
+        src={project.image}
+        alt={project.title}
+        fill
+        className="object-cover"
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+      />
 
-            {/* Overlay gradient */}
-            <div className="from-cyber-darker absolute inset-0 bg-gradient-to-t to-transparent opacity-30" />
-          </>
-        )}
+      {/* Overlay gradients that scale together */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Hover overlay */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-neon-purple/0 via-neon-blue/0 to-transparent opacity-0 mix-blend-overlay transition-opacity duration-500 ease-out group-hover:opacity-30" />
+
+        {/* Top glow */}
+        <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-neon-purple/10 to-transparent" />
+
+        {/* Bottom darker gradient */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-neon-purple/10 via-neon-blue/10 to-transparent opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-20" />
+
+        {/* Side vignettes */}
+        <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-cyber-darker/30 to-transparent" />
+        <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-cyber-darker/30 to-transparent" />
       </div>
+    </div>
+  </>
+) : (
+  // Decorative header fallback
+  <>
+    <motion.div
+      className="absolute inset-0 bg-gradient-to-br from-neon-blue/20 via-neon-purple/20 to-neon-pink/20"
+      animate={{ backgroundPosition: ['0% 0%', '100% 100%'] }}
+      transition={{
+        duration: 10,
+        repeat: Infinity,
+        repeatType: 'reverse',
+        ease: 'linear',
+      }}
+      style={{ backgroundSize: '200% 200%' }}
+    />
+    <CyberpunkIcon tech={project.technologies} />
+    <div className="absolute inset-0 bg-gradient-to-t from-cyber-darker to-transparent opacity-30" />
+  </>
+)}
 
-      {/* Content */}
-      <div className="flex h-[calc(100%-14rem)] flex-col justify-between p-6">
-        <div className="space-y-4">
-          {/* Title */}
-          <motion.h3
-            className="font-cyber text-neon-blue text-xl"
-            whileHover={{ x: 5, textShadow: '0 0 8px #00FFF5' }}
-          >
-            {project.title}
-          </motion.h3>
+          </div>
 
-          {/* Description */}
-          <p className="text-gray-300 line-clamp-4">{project.description}</p>
-
-          {/* Technologies */}
-          <div className="flex flex-wrap gap-2">
-            {project.technologies.map((tech, i) => (
-              <motion.span
-                key={i}
-                className="bg-cyber-primary/30 text-neon-purple border-neon-purple/50 rounded-full border px-2 py-1 text-xs"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.2, delay: index * 0.1 + i * 0.05 }}
-                whileHover={{ scale: 1.1 }}
+          {/* Content */}
+          <div className="flex h-[calc(100%-14rem)] flex-col justify-between p-6">
+            <div className="space-y-4">
+              {/* Title */}
+              <motion.h3
+                className="font-cyber text-neon-blue text-xl"
+                whileHover={{ x: 5, textShadow: '0 0 8px #00FFF5' }}
               >
-                {tech}
-              </motion.span>
-            ))}
+                {project.title}
+              </motion.h3>
+
+              {/* Description */}
+              <p className="text-gray-300 line-clamp-4">{project.description}</p>
+
+              {/* Technologies */}
+              <div className="flex flex-wrap gap-2">
+                {project.technologies.map((tech, i) => (
+                  <motion.span
+                    key={i}
+                    className="bg-cyber-primary/30 text-neon-purple border-neon-purple/50 rounded-full border px-2 py-1 text-xs"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.2, delay: index * 0.1 + i * 0.05 }}
+                    whileHover={{ scale: 1.1 }}
+                  >
+                    {tech}
+                  </motion.span>
+                ))}
+              </div>
+            </div>
+
+            {/* Links */}
+            <div className="flex gap-4 pt-2">
+              {project.demoUrl && (
+                <motion.a
+                  href={project.demoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-neon-blue/10 text-neon-blue border-neon-blue hover:bg-neon-blue/20 flex-1 rounded border px-4 py-2 text-center transition-colors"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Live Demo
+                </motion.a>
+              )}
+              <motion.a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-neon-purple/10 text-neon-purple border-neon-purple hover:bg-neon-purple/20 flex-1 rounded border px-4 py-2 text-center transition-colors"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                GitHub
+              </motion.a>
+            </div>
           </div>
         </div>
-
-        {/* Links */}
-        <div className="flex gap-4 pt-2">
-          {project.demoUrl && (
-            <motion.a
-              href={project.demoUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-neon-blue/10 text-neon-blue border-neon-blue hover:bg-neon-blue/20 flex-1 rounded border px-4 py-2 text-center transition-colors"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Live Demo
-            </motion.a>
-          )}
-          <motion.a
-            href={project.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-neon-purple/10 text-neon-purple border-neon-purple hover:bg-neon-purple/20 flex-1 rounded border px-4 py-2 text-center transition-colors"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            GitHub
-          </motion.a>
-        </div>
-      </div>
-
-      {/* Featured Badge */}
-      {project.featured && (
-        <motion.div
-          className="bg-neon-blue/20 text-neon-blue border-neon-blue absolute top-4 right-4 rounded-full border px-3 py-1 text-sm"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: index * 0.1 + 0.2 }}
-        >
-          Featured
-        </motion.div>
-      )}
+      </motion.div>
     </motion.div>
   );
 }
