@@ -1,0 +1,102 @@
+[
+  {
+    "id": "bio-1",
+    "text": "Cece is a Computer Science CO-OP student at the University of Ottawa with a strong interest in full-stack development, DevOps, and building smart tools to solve real-world problems. She's passionate about creating polished, performant user experiences while also designing scalable backend systems."
+  },
+  {
+    "id": "bio-2",
+    "text": "Cece enjoys hiking, especially in forested areas and along new, challenging trails. She loves the sense of adventure, the physical challenge, and the opportunity to explore scenic spots. Hiking is her favorite way to recharge — preferably followed by sushi and something sweet."
+  },
+  {
+    "id": "bio-3",
+    "text": "Beyond work and school, Cece is a curious technologist who explores new tools, libraries, and workflows for fun. She especially enjoys frameworks that improve developer experience and maintainability. She's also a big fan of purple-themed design, clean UI, and anything that can be automated."
+  },
+  {
+    "id": "funfacts-1",
+    "text": "Some fun facts about Cece: she loves avocados, sushi, and sweets (she proudly calls herself a sugar fiend). She’s always looking for cool ways to integrate her interests into side projects — like using AI to predict what clothes she’ll wear most, or building song-based guessing games."
+  },
+  {
+    "id": "funfacts-purple",
+    "text": "Cece’s favorite color is purple!!"
+  },
+  {
+    "id": "funfacts-shopping",
+    "text": "Shopping is one of Cece’s favorite ways to unwind. Whether it’s hunting for the perfect outfit, testing new tech gadgets, or just scrolling through aesthetic home decor, she finds joy in exploring style and functionality — often drawing inspiration for her design projects along the way."
+  },
+  {
+    "id": "project-melodymatch",
+    "text": "Cece created MelodyMatch, a song-guessing game powered by the Spotify API. She used React, Vite, and Tailwind for the frontend, and Express.js with Redis and MongoDB for the backend. The app is containerized with Docker and deployed to AWS EC2 using NGINX and Cloudflare SSL. It was built because she loves Taylor Swift and wanted to create a fun way to test her knowledge of her songs."
+  },
+  {
+    "id": "experience-rbc",
+    "text": "At RBC Direct Investing, Cece worked as an iOS Developer, contributing to Swift-based automated test frameworks and assisting in migrating older components to new APIs. She collaborated with QA and backend teams, becoming familiar with financial systems and CI pipelines."
+  },
+  {
+    "id": "experience-limgeomatics",
+    "text": "Cece developed Flutter apps and Kotlin plugins at Lim Geomatics. She implemented CBC encryption and built a secure file parser that sped up processes by 61%. She also worked with Jira and GitHub Actions for Agile collaboration and continuous integration."
+  },
+  {
+    "id": "experience-rocketry",
+    "text": "As part of her university’s Rocketry team, Cece works on embedded systems for avionics. Her responsibilities include software integration, sensor data handling, and writing telemetry logic for flight hardware. It’s a hands-on way for her to combine code, hardware, and teamwork."
+  },
+  {
+    "id": "skills-summary",
+    "text": "Cece is skilled in React, TypeScript, Node.js, Express, MongoDB, Docker, Tailwind CSS, Swift, Kotlin, and Flutter. She’s comfortable working across the stack — from UI animations to secure backend APIs — and loves optimizing both code and developer workflows. She is also skilled in Python, Java. She has experience working with both SQL and NoSQL databases."
+  },
+  {
+    "id": "interests-1",
+    "text": "Cece is interested in AI-powered user tools, mobile development, and web performance. She’s built internal plugins, machine learning apps, and AI-driven prediction tools. Her goal is to work on products that balance strong UX with clean, scalable codebases."
+  },
+  {
+    "id": "education",
+    "text": "Cece is studying Computer Science at the University of Ottawa, where she combines her academic foundation with practical experience gained through CO-OP placements in fintech, geospatial software, and engineering teams."
+  },
+  {
+    "id": "career-focus",
+    "text": "Even though Cece has worked on several frontend projects, she's currently focused on exploring backend systems, DevOps pipelines, and scalable cloud solutions. She's especially interested in infrastructure-as-code, containerized deployment workflows, and API design."
+  },
+  {
+    "id": "sideproject-closet-ai",
+    "text": "Cece built an AI-powered wear predictor to rank how likely she is to wear each clothing item in her wardrobe. It uses a random forest regression model trained on comfort, trendiness, and fabric quality — and a lot of fashion intuition."
+  },
+  {
+    "id": "why-code",
+    "text": "Cece is driven by the thrill of turning ideas into real, working tools — especially when those tools solve annoyances in everyday life or unlock something fun and unexpected. Whether it’s streamlining a process, visualizing music data, or predicting outfit choices, she loves the mix of creativity, logic, and impact that coding offers. For her, building software is both a puzzle and a playground."
+  },
+  {
+    "id": "learning-now-1",
+    "text": "Cece is currently diving deeper into container orchestration with Docker Compose and Kubernetes. She’s also experimenting with AI workflows and embedding-powered search."
+  },
+  {
+    "id": "faq-intro",
+    "text": "You can ask about Cece’s background, technical skills, work experience, favorite projects, hobbies, or career goals. Want to know what she built in her side projects? Curious about what she’s learning or where she wants to work next? Just ask! She also has strong opinions on purple, sushi, and hiking trails."
+  },
+  {
+    "id": "favorite-sushi",
+    "text": "Cece’s favorite sushi is butterfish sashimi — soft, rich, and melt-in-your-mouth. It’s her go-to pick every time she’s at a sushi spot."
+  },
+  {
+    "id": "favorite-book",
+    "text": "Cece finds it hard to choose a single favorite book, but one standout is *Six of Crows* — she loved the layered characters and clever storytelling. She’s also a fan of fantasy and stories with morally complex protagonists."
+  },
+  {
+    "id": "currently-reading",
+    "text": "Recently, Cece has been reading more non-fiction. One of the books she’s currently into is *Killers of the Flower Moon*, which explores justice, corruption, and history through a true crime lens."
+  },
+  {
+    "id": "favorite-stores",
+    "text": "Cece’s favorite places to shop are Aritzia, Garage, and Hollister. She loves a mix of cozy basics, structured silhouettes, and stylish pieces that feel effortlessly confident."
+  },
+  {
+    "id": "favorite-language",
+    "text": "Cece’s favorite programming language is Python — no contest! She loves its readability, versatility, and how quickly she can go from idea to prototype. Whether it’s building AI tools, data scripts, or quick automations, Python is always her first choice."
+  },
+  {
+    "id": "how-do-you-know",
+    "text": "Because Cece *literally trained me herself*, bestie. Every project, fun fact, and sushi craving — she fed it to me like digital tea. I'm not just making this up, I was built to slay accurate answers about her life, skills, and sweet tooth. Ask away 💅."
+  },
+  {
+    "id": "favorite-lingo",
+    "text": "Cece’s vocabulary is 50% code, 50% slay. Some of her favorite words include: 'slay', 'gurlie', 'queen', and the holy trinity — 'gaslight, gatekeep, gurlboss'. Expect responses with ✨vibes✨ when she’s in charge of the keyboard."
+  }
+]
