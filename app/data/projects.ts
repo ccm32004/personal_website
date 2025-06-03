@@ -1,7 +1,7 @@
 export interface Project {
   title: string;
   description: string;
-  image: string;
+  image?: string;
   demoUrl?: string;
   githubUrl: string;
   technologies: string[];
@@ -10,42 +10,81 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    title: 'AI-Powered Task Manager',
+    title: 'CeceBot',
     description:
-      'A smart task management application that uses machine learning to prioritize and categorize tasks. Features natural language processing for task input and intelligent deadline suggestions.',
-    image: '/images/project1.jpg',
-    demoUrl: 'https://task-manager.demo.com',
-    githubUrl: 'https://github.com/username/task-manager',
-    technologies: ['React', 'Python', 'TensorFlow', 'FastAPI', 'PostgreSQL'],
+      'AI-powered chatbot using the Mistral language model for real-time conversation and personalized Q&A.',
+    image: '/images/cecebot.png',
+    demoUrl: 'https://cecebot.vercel.app',
+    githubUrl: 'https://github.com/cecemei/cecebot',
+    technologies: [
+      "Python",
+      "FastAPI",
+      "MiniLM",
+      "ChromaDB",
+    ],
     featured: true,
   },
   {
-    title: 'Real-time Collaboration Platform',
+    title: 'Personal Website',
     description:
-      'A WebSocket-based platform enabling real-time document editing, chat, and project management. Supports multiple users with live cursors and instant updates.',
-    image: '/images/project2.jpg',
-    demoUrl: 'https://collab.demo.com',
-    githubUrl: 'https://github.com/username/collab-platform',
-    technologies: ['Vue.js', 'Node.js', 'Socket.io', 'MongoDB', 'Docker'],
+      'Modern portfolio website featuring animated components, responsive design, and smooth transitions.',
+    image: '/images/portfolio.png',
+    demoUrl: 'https://cecema.com',
+    githubUrl: 'https://github.com/ccm32004/personal-website',
+    technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
     featured: true,
   },
   {
-    title: 'Blockchain Voting System',
+    title: 'MelodyMatch',
     description:
-      'A secure and transparent voting system built on blockchain technology. Features voter verification, real-time vote counting, and immutable record keeping.',
-    image: '/images/project3.jpg',
-    githubUrl: 'https://github.com/username/blockchain-voting',
-    technologies: ['Solidity', 'Ethereum', 'Web3.js', 'React', 'TypeScript'],
+      'Full-stack web app where users guess songs from Spotify snippets.',
+    image: '/images/melodymatch.png',
+    demoUrl: 'https://melodymatch.cc',
+    githubUrl: 'https://github.com/ccm32004/song_guesser',
+    technologies: ['Mantine', 'Redis', 'MongoDB', 'AWS EC2', 'Nginx'],
+    featured: true,
+  },
+  {
+    title: 'Closet Wear Predictor',
+    description:
+      'Interactive ML app predicting clothing wear frequency. Uses Random Forest regression.',
+    image: '/images/wear.png',
+    githubUrl: 'https://github.com/yourusername/closet_efficiency_predictor',
+    technologies: ['Python', 'Streamlit', 'scikit-learn', 'Docker'],
     featured: false,
   },
   {
-    title: 'E-commerce Analytics Dashboard',
+    title: 'AcneVue',
     description:
-      'A comprehensive analytics dashboard for e-commerce platforms with real-time sales tracking, inventory management, and predictive analytics.',
-    image: '/images/project4.jpg',
-    demoUrl: 'https://analytics.demo.com',
-    githubUrl: 'https://github.com/username/ecommerce-analytics',
-    technologies: ['Next.js', 'GraphQL', 'AWS', 'D3.js', 'Redis'],
+      'Web app classifying skin conditions from user photos, with TensorFlow CNN and personalized recommendations. Built at McGill Hacks.',
+    image: '/images/acnevue.png',
+    githubUrl: 'https://github.com/ccm32004/acnevue',
+    technologies: ['TensorFlow', 'Keras', 'React', 'Flask', 'Tailwind CSS'],
+    featured: false,
+  },
+  {
+    title: 'EcoQuest',
+    description:
+      'Gamified web app where users track eco-friendly actions and compete on a leaderboard. Auth0 authentication included.',
+    image: '/images/ecoquest.png',
+    githubUrl: 'https://github.com/ccm32004/ecoquest',
+    technologies: ['React.js', 'TypeScript', 'Express.js', 'PostgreSQL'],
+    featured: false,
+  },
+  {
+    title: 'Rate My Study Space',
+    description:
+      'Dynamic site for reviewing campus study spots. Designed in Figma and deployed with AWS DynamoDB. Winner at UOttaHack.',
+    githubUrl: 'https://github.com/yourusername/rate-my-study-space',
+    technologies: ['HTML', 'Bootstrap', 'JavaScript', 'AWS DynamoDB'],
+    featured: false,
+  },
+  {
+    title: 'Ehotel',
+    description:
+      'Hotel booking web app with MySQL backend, Express.js APIs, and a vanilla HTML/CSS/JS frontend.',
+    githubUrl: 'https://github.com/yourusername/ehotel',
+    technologies: ['MySQL', 'Express.js', 'HTML', 'CSS', 'JavaScript'],
     featured: false,
   },
 ];

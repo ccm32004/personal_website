@@ -1,22 +1,20 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 
 const images = [
   {
-    gradient: 'from-neon-blue via-purple-600 to-neon-pink',
-    alt: 'Coding in action',
-    emoji: '👩‍💻',
+    src: '/images/profile1.png',
+    alt: 'Coding at my desk',
   },
   {
-    gradient: 'from-neon-purple via-cyber-primary to-neon-blue',
-    alt: 'Speaking at tech conferences',
-    emoji: '🎤',
+    src: '/images/profile2.png',
+    alt: 'more hiking in nature',
   },
   {
-    gradient: 'from-neon-pink via-purple-600 to-neon-blue',
-    alt: 'Building projects',
-    emoji: '🚀',
+    src: '/images/profile3.png',
+    alt: 'Hiking in nature',
   },
 ];
 
@@ -84,14 +82,35 @@ export default function PhotoGallery() {
           transition={{ duration: 0.5 }}
           className="relative h-full w-full"
         >
-          <div
-            className={`absolute inset-0 bg-gradient-to-br ${images[currentIndex].gradient} flex items-center justify-center`}
-          >
-            <div className="text-center">
-              <span className="mb-4 block text-6xl">{images[currentIndex].emoji}</span>
-              <span className="font-cyber text-lg text-white">{images[currentIndex].alt}</span>
+          {images[currentIndex].src ? (
+            <div className="relative h-full w-full">
+              <Image
+                src={images[currentIndex].src}
+                alt={images[currentIndex].alt}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
+              {/* Cyberpunk overlay effects */}
+              <div className="absolute inset-0">
+                {/* Top glow */}
+                <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-neon-purple/10 to-transparent" />
+                
+                {/* Bottom darker gradient */}
+                <div className="absolute inset-x-0 bottom-0 h-full bg-gradient-to-t from-cyber-darker/60 via-transparent to-transparent" />
+                
+                {/* Side vignettes */}
+                <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-cyber-darker/20 to-transparent" />
+                <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-cyber-darker/20 to-transparent" />
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="flex h-full w-full items-center justify-center">
+              <div className="text-center">
+                <span className="font-cyber text-neon-blue text-lg">Image not found</span>
+              </div>
+            </div>
+          )}
         </motion.div>
       </AnimatePresence>
 

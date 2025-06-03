@@ -35,43 +35,60 @@ export default function About() {
         initial="hidden"
         animate={isInView ? 'visible' : 'hidden'}
       >
-        <motion.h2
-          variants={itemVariants}
-          className="font-cyber text-neon-purple text-glow-purple mb-12 text-3xl md:text-4xl"
-        >
-          About Me
-        </motion.h2>
+        <div className="bg-cyber-darker/60 border-neon-purple/40 shadow-neon-purple/10 relative grid gap-12 rounded-lg border p-10 backdrop-blur-sm lg:grid-cols-[1.2fr_1fr]">
+          {/* Floating HUD corner line */}
+          <div className="border-neon-purple/60 absolute -top-2 -left-2 h-10 w-10 border-t-2 border-l-2"></div>
+          <div className="border-neon-purple/60 absolute -right-2 -bottom-2 h-10 w-10 border-r-2 border-b-2"></div>
 
-        <div className="grid items-start gap-12 md:grid-cols-2">
-          <motion.div className="space-y-6 text-lg" variants={itemVariants}>
-            <motion.p className="text-gray-300" variants={itemVariants}>
-              Hey there! I'm a software developer passionate about building beautiful, functional,
-              and user-friendly applications. With a strong foundation in modern web technologies, I
-              love creating solutions that make a difference.
-            </motion.p>
-            <motion.p className="text-gray-300" variants={itemVariants}>
-              When I'm not coding, you can find me exploring new technologies, contributing to
-              open-source projects, or sharing my knowledge with the developer community.
-            </motion.p>
-            <motion.div className="flex gap-4 pt-6" variants={itemVariants}>
-              <motion.button
-                className="bg-cyber-primary border-neon-blue text-neon-blue hover:shadow-neon-blue rounded border px-6 py-3 transition-shadow"
+          {/* Text Panel */}
+          <div className="space-y-8">
+            <motion.h2
+              variants={itemVariants}
+              className="font-cyber text-neon-purple text-glow-purple text-3xl md:text-4xl"
+            >
+              About Me
+            </motion.h2>
+
+            <motion.div
+              className="space-y-5 text-base leading-relaxed text-gray-300 md:text-lg"
+              variants={itemVariants}
+            >
+              <motion.p variants={itemVariants}>
+              Hey! I'm Cece — a full-stack software dev who loves building cool stuff that actually works! 
+              </motion.p>
+              <motion.p variants={itemVariants}>
+              When I'm not squashing bugs or shipping features, I'm usually out hiking forest trails, finding ways to mash my hobbies with tech, or doing a little retail therapy (read: shopping as debugging for the soul).
+              </motion.p>
+            </motion.div>
+
+            {/* Buttons */}
+            <motion.div className="flex gap-4 pt-4" variants={itemVariants}>
+              <motion.a
+                href="https://drive.google.com/file/d/1omt57mkqwoD0qgg7NLhsFuKZk-sTQJb-/view?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-cyber-primary border-neon-blue text-neon-blue hover:shadow-neon-blue group flex items-center gap-2 rounded border px-6 py-3 font-mono uppercase transition-all hover:scale-105"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 Resume
-              </motion.button>
+              </motion.a>
               <motion.button
-                className="bg-cyber-primary border-neon-purple text-neon-purple hover:shadow-neon-purple rounded border px-6 py-3 transition-shadow"
+                className="bg-cyber-primary border-neon-purple text-neon-purple hover:shadow-neon-purple rounded border px-6 py-3 font-mono uppercase transition-shadow"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 Contact
               </motion.button>
             </motion.div>
-          </motion.div>
+          </div>
 
-          <motion.div variants={itemVariants}>
+          {/* Holographic Photo Panel */}
+          <motion.div
+            variants={itemVariants}
+            className="border-neon-blue/30 to-cyber-dark/60 shadow-neon-blue/10 relative rounded-xl border bg-gradient-to-br from-black/30 p-2 shadow-inner backdrop-blur-sm"
+          >
+            <div className="border-neon-purple/20 pointer-events-none absolute top-0 left-0 h-full w-full rounded-xl border"></div>
             <PhotoGallery />
           </motion.div>
         </div>

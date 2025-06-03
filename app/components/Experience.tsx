@@ -1,7 +1,7 @@
 'use client';
 import { motion } from 'framer-motion';
 import { experiences } from '../data/experiences';
-import TimelineItem from './TimelineItem';
+import AnimatedExperienceItem from './AnimatedExperienceItem';
 
 export default function Experience() {
   return (
@@ -16,19 +16,29 @@ export default function Experience() {
           Experience
         </motion.h2>
 
-        <motion.div
-          className="relative"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          {experiences.map((experience, index) => (
-            <TimelineItem key={experience.company} experience={experience} index={index} />
-          ))}
+        <div className="relative space-y-12">
+          {/* Vertical connecting line */}
+          <div className="absolute top-0 left-1/2 h-full w-px -translate-x-1/2 transform">
+            <motion.div
+              className="from-neon-purple via-neon-purple h-full w-full bg-gradient-to-b to-transparent"
+              initial={{ height: 0 }}
+              animate={{ height: '100%' }}
+              transition={{ duration: 1, delay: 0.5 }}
+            />
+          </div>
 
-          {/* Final timeline line gradient */}
-          <div className="from-neon-blue via-neon-blue/50 absolute top-0 left-0 h-full w-px bg-gradient-to-b to-transparent" />
-        </motion.div>
+          {experiences.map((experience, index) => (
+            <AnimatedExperienceItem
+              key={experience.company}
+              title={experience.title}
+              company={experience.company}
+              date={experience.period}
+              description={experience.description.join('\n')}
+              technologies={experience.technologies}
+              isLeft={index % 2 === 0}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );

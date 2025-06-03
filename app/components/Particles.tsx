@@ -22,11 +22,11 @@ export default function FloatingParticles() {
   if (!hasMounted) return null;
 
   return (
-    <div className="absolute inset-0 z-10 pointer-events-none">
+    <div className="pointer-events-none absolute inset-0 z-10">
       {particles.map((p, i) => (
         <motion.div
           key={i}
-          className="absolute w-1 h-1 bg-neon-blue rounded-full"
+          className="bg-neon-blue absolute h-1 w-1 rounded-full"
           style={{ left: p.x, top: p.y }}
           initial={{ opacity: 1, scale: 1 }}
           animate={{ y: '-100%', opacity: 0 }}

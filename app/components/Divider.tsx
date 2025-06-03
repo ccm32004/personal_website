@@ -14,8 +14,8 @@ export default function Divider() {
         }}
         transition={{
           duration: 2,
-          repeatType: "mirror",
-          ease: "easeInOut",
+          repeatType: 'mirror',
+          ease: 'easeInOut',
         }}
       />
     </div>

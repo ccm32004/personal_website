@@ -12,7 +12,7 @@ This task list walks through building a local-first RAG-powered chatbot for a po
 
 ### 1. Create `rag-backend/` directory
 
-* Confirm the structure:
+- Confirm the structure:
 
   ```
   my-portfolio/
@@ -41,8 +41,8 @@ python-dotenv
 
 ### 3. Manually create `data.json` in `rag-backend/`
 
-* Write clean, structured text chunks about yourself.
-* Format:
+- Write clean, structured text chunks about yourself.
+- Format:
 
 ```json
 [
@@ -59,15 +59,15 @@ python-dotenv
 
 ### 4. Implement `embed_data.py`
 
-* Load `data.json`
-* Embed with `all-MiniLM-L6-v2`
-* Save embeddings to local ChromaDB collection (`cece-knowledge`)
-* Persist to `chroma_store/`
+- Load `data.json`
+- Embed with `all-MiniLM-L6-v2`
+- Save embeddings to local ChromaDB collection (`cece-knowledge`)
+- Persist to `chroma_store/`
 
 ### 5. Run and test `embed_data.py`
 
-* ✅ Verify ChromaDB has the correct number of vectors.
-* ✅ Confirm `chroma_store/` is created and populated.
+- ✅ Verify ChromaDB has the correct number of vectors.
+- ✅ Confirm `chroma_store/` is created and populated.
 
 ---
 
@@ -75,23 +75,23 @@ python-dotenv
 
 ### 6. Create `main.py` (FastAPI app)
 
-* Expose `POST /query`
-* Accepts: `{ "query": "..." }`
-* Embeds the query with MiniLM
-* Queries local ChromaDB for top 3 matching chunks
-* Constructs `[INST]`-style prompt
+- Expose `POST /query`
+- Accepts: `{ "query": "..." }`
+- Embeds the query with MiniLM
+- Queries local ChromaDB for top 3 matching chunks
+- Constructs `[INST]`-style prompt
 
 ### 7. Send prompt to Hugging Face Inference API
 
-* Use `mistralai/Mistral-7B-Instruct-v0.1`
-* Use `HF_API_TOKEN` from `.env.local`
-* Return the generated response
+- Use `mistralai/Mistral-7B-Instruct-v0.1`
+- Use `HF_API_TOKEN` from `.env.local`
+- Return the generated response
 
 ### 8. Test `/query` endpoint
 
-* Run with `uvicorn main:app --reload`
-* Test with `curl` or Postman
-* ✅ Ensure it returns a useful answer
+- Run with `uvicorn main:app --reload`
+- Test with `curl` or Postman
+- ✅ Ensure it returns a useful answer
 
 ---
 
@@ -99,26 +99,27 @@ python-dotenv
 
 ### 9. Create `src/components/Chat.tsx`
 
-* UI includes:
+- UI includes:
 
-  * Textarea for input
-  * Submit button
-  * Display area for response
-* POST query to `http://localhost:8000/query`
+  - Textarea for input
+  - Submit button
+  - Display area for response
+
+- POST query to `http://localhost:8000/query`
 
 ### 10. Add `<Chat />` to `src/app/page.tsx`
 
-* Integrate it as a new **section** below existing content
-* Wrap it in a `<section>` styled using the Cyberpunk Tailwind theme
+- Integrate it as a new **section** below existing content
+- Wrap it in a `<section>` styled using the Cyberpunk Tailwind theme
 
 ### 11. Style the chat section
 
-* Use colors, shadows, and fonts from your custom Tailwind config
-* Ensure it:
+- Use colors, shadows, and fonts from your custom Tailwind config
+- Ensure it:
 
-  * Fits visually into the site
-  * Does not take up the full screen
-  * Looks like an interactive “terminal” or retro AI panel
+  - Fits visually into the site
+  - Does not take up the full screen
+  - Looks like an interactive “terminal” or retro AI panel
 
 ---
 
@@ -126,9 +127,9 @@ python-dotenv
 
 ### 12. Manually test chatbot end-to-end
 
-* Ask: "What is MelodyMatch?" or "Where did Cece work?"
-* ✅ Ensure answer comes from your written data
-* ✅ Validate loading state and UI behavior
+- Ask: "What is MelodyMatch?" or "Where did Cece work?"
+- ✅ Ensure answer comes from your written data
+- ✅ Validate loading state and UI behavior
 
 ---
 
@@ -136,9 +137,9 @@ python-dotenv
 
 ### 13. Deploy `rag-backend/` to Render or Fly.io (later)
 
-* Add `chroma_store/` as persistent volume if needed
-* Set `HF_API_TOKEN` in environment
-* Change frontend URL from `localhost:8000` to live endpoint
+- Add `chroma_store/` as persistent volume if needed
+- Set `HF_API_TOKEN` in environment
+- Change frontend URL from `localhost:8000` to live endpoint
 
 ---
 
@@ -154,20 +155,20 @@ HF_API_TOKEN=your_huggingface_token
 
 ## 🧩 BONUS TASKS (OPTIONAL)
 
-* [ ] Add loading animation / typewriter effect in chat
-* [ ] Add fallback if no chunks retrieved
-* [ ] Switch to Chroma Cloud later (just update the client)
-* [ ] Log unanswered queries for improvement
+- [ ] Add loading animation / typewriter effect in chat
+- [ ] Add fallback if no chunks retrieved
+- [ ] Switch to Chroma Cloud later (just update the client)
+- [ ] Log unanswered queries for improvement
 
 ---
 
 ## ✅ MVP DONE WHEN
 
-* [ ] Data is embedded and stored locally
-* [ ] Query returns grounded response from Hugging Face
-* [ ] Chat UI is styled and integrated into the site
-* [ ] Working locally end-to-end
-* [ ] Ready for Vercel + backend deployment
+- [ ] Data is embedded and stored locally
+- [ ] Query returns grounded response from Hugging Face
+- [ ] Chat UI is styled and integrated into the site
+- [ ] Working locally end-to-end
+- [ ] Ready for Vercel + backend deployment
 
 ---
 

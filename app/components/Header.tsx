@@ -1,13 +1,13 @@
 'use client';
 import { motion } from 'framer-motion';
-import { useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import FloatingParticles from './Particles';
 
 export default function Header() {
   const [firstLine, setFirstLine] = useState('');
   const [secondLine, setSecondLine] = useState('');
   const fullFirstLine = "Hi, I'm Cece!";
-  const fullSecondLine = "Software Developer";
+  const fullSecondLine = 'Software Developer';
   const [isFirstLineDone, setIsFirstLineDone] = useState(false);
   const [isSecondLineDone, setIsSecondLineDone] = useState(false);
   const [showCursor, setShowCursor] = useState(true);
@@ -52,32 +52,32 @@ export default function Header() {
     if (isSecondLineDone) return; // stop blinking after everything is done
 
     const cursorInterval = setInterval(() => {
-      setShowCursor(prev => !prev);
+      setShowCursor((prev) => !prev);
     }, 500);
 
     return () => clearInterval(cursorInterval);
   }, [isSecondLineDone]);
 
   return (
-    <header className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+    <header className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden">
       {/* Animated background */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-cyber-black">
+        <div className="bg-cyber-black absolute inset-0">
           {/* Grid lines */}
           <div className="absolute inset-0 grid grid-cols-12 gap-4 opacity-20">
             {Array.from({ length: 12 }).map((_, i) => (
-              <div key={i} className="h-full border-r border-neon-blue/30" />
+              <div key={i} className="border-neon-blue/30 h-full border-r" />
             ))}
           </div>
           <div className="absolute inset-0 grid grid-rows-12 gap-4 opacity-20">
             {Array.from({ length: 12 }).map((_, i) => (
-              <div key={i} className="w-full border-b border-neon-blue/30" />
+              <div key={i} className="border-neon-blue/30 w-full border-b" />
             ))}
           </div>
-          
+
           {/* Animated gradient overlay */}
           <motion.div
-            className="absolute inset-0 bg-gradient-to-br from-neon-blue/10 via-neon-purple/5 to-transparent"
+            className="from-neon-blue/10 via-neon-purple/5 absolute inset-0 bg-gradient-to-br to-transparent"
             animate={{
               opacity: [0.5, 0.8, 0.5],
               scale: [1, 1.1, 1],
@@ -85,72 +85,70 @@ export default function Header() {
             transition={{
               duration: 8,
               repeat: Infinity,
-              repeatType: "reverse",
-              ease: "easeInOut",
+              repeatType: 'reverse',
+              ease: 'easeInOut',
             }}
           />
-          
+
           {/* Floating particles */}
           <FloatingParticles />
-          
-
-          </div>
         </div>
+      </div>
 
       {/* Content */}
       <div className="relative z-10">
-        <motion.h1 
-          className="text-4xl md:text-6xl font-cyber mb-4 text-neon-blue relative flex flex-col items-start text-left"
+        <motion.h1
+          className="font-cyber text-neon-blue relative mb-4 flex flex-col items-start text-left text-4xl md:text-6xl"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <div className="relative text-glow-blue">
+          <div className="text-glow-blue relative">
             <span>{firstLine}</span>
             {!isFirstLineDone && showCursor && <span className="ml-1">|</span>}
           </div>
           {isFirstLineDone && (
-            <div className="relative mt-4 text-neon-purple text-glow-purple text-2xl md:text-3xl">
+            <div className="text-neon-purple text-glow-purple relative mt-4 text-2xl md:text-3xl">
               <span>{secondLine}</span>
               {!isSecondLineDone && showCursor && <span className="ml-1">|</span>}
             </div>
           )}
         </motion.h1>
-        <motion.div 
-          className="w-24 h-1 bg-neon-blue shadow-neon-blue mt-8"
+        <motion.div
+          className="bg-neon-blue shadow-neon-blue mt-8 h-1 w-24"
           animate={{
             boxShadow: ['0 0 10px #00FFF5', '0 0 20px #00FFF5', '0 0 10px #00FFF5'],
           }}
           transition={{
             duration: 2,
             repeat: Infinity,
-            repeatType: "reverse",
+            repeatType: 'reverse',
           }}
         />
       </div>
 
       {/* Scroll indicator */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center"
+        className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center"
         animate={{
           y: [0, 10, 0],
         }}
         transition={{
           duration: 2,
           repeat: Infinity,
-          repeatType: "reverse",
+          repeatType: 'reverse',
         }}
       >
-        <div className="text-neon-blue text-glow-blue text-sm text-center">Scroll Down</div>
+        <div className="text-neon-blue text-glow-blue text-center text-sm">Scroll Down</div>
         <motion.div
-          className="w-6 h-6 border-b-2 border-r-2 border-neon-blue transform rotate-45 mt-2"
+          className="border-neon-blue mt-2 h-6 w-6 rotate-45 transform border-r-2 border-b-2"
           animate={{
             opacity: [0.5, 1, 0.5],
           }}
           transition={{
             duration: 2,
             repeat: Infinity,
-            repeatType: "reverse",
+            repeatType: 'reverse',
           }}
         />
       </motion.div>
