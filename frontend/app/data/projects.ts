@@ -16,12 +16,7 @@ export const projects: Project[] = [
     image: '/images/cecebot.png',
     demoUrl: 'https://cecebot.vercel.app',
     githubUrl: 'https://github.com/cecemei/cecebot',
-    technologies: [
-      "Python",
-      "FastAPI",
-      "MiniLM",
-      "Pinecone",
-    ],
+    technologies: ['Python', 'FastAPI', 'MiniLM', 'Pinecone'],
     featured: true,
   },
   {
@@ -36,8 +31,7 @@ export const projects: Project[] = [
   },
   {
     title: 'MelodyMatch',
-    description:
-      'Full-stack web app where users guess songs from Spotify snippets.',
+    description: 'Full-stack web app where users guess songs from Spotify snippets.',
     image: '/images/melodymatch.png',
     demoUrl: 'https://melodymatch.cc',
     githubUrl: 'https://github.com/ccm32004/song_guesser',
@@ -73,8 +67,7 @@ export const projects: Project[] = [
   },
   {
     title: 'Rate My Study Space',
-    description:
-      'Dynamic site for reviewing campus study spots. Winner at UOttaHack.',
+    description: 'Dynamic site for reviewing campus study spots. Winner at UOttaHack.',
     githubUrl: 'https://github.com/yourusername/rate-my-study-space',
     technologies: ['HTML', 'Bootstrap', 'JavaScript', 'AWS DynamoDB'],
     featured: false,

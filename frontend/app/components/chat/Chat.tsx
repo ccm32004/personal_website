@@ -60,9 +60,11 @@ export default function Chat() {
         setMessages((prev) => {
           const updated = [
             ...prev,
-            { 
-              text: data.message || "You're sending messages too quickly! Please wait a moment before trying again. ✨", 
-              sender: 'bot' as const 
+            {
+              text:
+                data.message ||
+                "You're sending messages too quickly! Please wait a moment before trying again. ✨",
+              sender: 'bot' as const,
             },
           ];
           setTimeout(scrollToBottom, 100);

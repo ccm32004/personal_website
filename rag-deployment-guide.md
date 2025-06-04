@@ -1,7 +1,5 @@
 ---
-
 ## 🧠 BACKEND DEPLOYMENT (RAG + FastAPI + Pinecone + DeepInfra)
-
 ---
 
 ### 1. ✅ Update `render.yaml` for Pinecone
@@ -11,8 +9,8 @@ services:
   - type: web
     name: cece-rag-backend
     runtime: python
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "uvicorn main:app --host 0.0.0.0 --port 8000"
+    buildCommand: 'pip install -r requirements.txt'
+    startCommand: 'uvicorn main:app --host 0.0.0.0 --port 8000'
     envVars:
       - key: DEEPINFRA_API_TOKEN
         sync: false
@@ -103,10 +101,10 @@ git push origin main
 
 ### 6. ✅ Add Render environment variables
 
-* `DEEPINFRA_API_TOKEN`
-* `PINECONE_API_KEY`
-* `PINECONE_ENV`
-* `PINECONE_INDEX_NAME`
+- `DEEPINFRA_API_TOKEN`
+- `PINECONE_API_KEY`
+- `PINECONE_ENV`
+- `PINECONE_INDEX_NAME`
 
 📍**Test**: Render service starts cleanly.
 
@@ -126,12 +124,11 @@ curl -X POST https://cece-rag-backend.onrender.com/query \
 
 ## 💻 FRONTEND DEPLOYMENT (Next.js + Tailwind + Vercel)
 
-*(No changes from original plan)*
+_(No changes from original plan)_
 
 ---
 
 Let me know if you'd like a **helper script** for loading and embedding your docs into Pinecone — happy to make your dev loop faster.
-
 
 ---
 

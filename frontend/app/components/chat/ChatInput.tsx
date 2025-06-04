@@ -16,7 +16,7 @@ export default function ChatInput({
   isRateLimited,
   timeRemaining,
   onInputChange,
-  onSubmit
+  onSubmit,
 }: ChatInputProps) {
   return (
     <div className="border-neon-purple bg-cyber-darker/90 border-t p-4">
@@ -27,14 +27,16 @@ export default function ChatInput({
             type="text"
             value={input}
             onChange={(e) => onInputChange(e.target.value)}
-            placeholder={isRateLimited ? `Rate limit exceeded ${timeRemaining}` : "Ask CeceBot a question..."}
-            className="border-neon-purple focus:border-neon-blue focus:ring-neon-blue w-full rounded-full border bg-black/30 py-3 pr-6 pl-8 text-gray-300 transition-colors focus:ring-1 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
+            placeholder={
+              isRateLimited ? `Rate limit exceeded ${timeRemaining}` : 'Ask CeceBot a question...'
+            }
+            className="border-neon-purple focus:border-neon-blue focus:ring-neon-blue w-full rounded-full border bg-black/30 py-3 pr-6 pl-8 text-gray-300 transition-colors focus:ring-1 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
             disabled={isLoading || isRateLimited}
           />
         </div>
         <motion.button
           type="submit"
-          className="bg-cyber-primary text-neon-purple border-neon-purple hover:shadow-neon-purple rounded-full border px-8 py-3 transition-shadow disabled:opacity-50 disabled:cursor-not-allowed"
+          className="bg-cyber-primary text-neon-purple border-neon-purple hover:shadow-neon-purple rounded-full border px-8 py-3 transition-shadow disabled:cursor-not-allowed disabled:opacity-50"
           whileHover={{ scale: isRateLimited ? 1 : 1.05 }}
           whileTap={{ scale: isRateLimited ? 1 : 0.95 }}
           disabled={isLoading || !input.trim() || isRateLimited}
@@ -44,4 +46,4 @@ export default function ChatInput({
       </form>
     </div>
   );
-} 
+}

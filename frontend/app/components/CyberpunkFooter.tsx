@@ -6,7 +6,7 @@ import { useRef } from 'react';
 export default function CyberpunkFooter() {
   const currentYear = new Date().getFullYear();
   const footerRef = useRef(null);
-  const isInView = useInView(footerRef, { once: true, margin: "-100px" });
+  const isInView = useInView(footerRef, { once: true, margin: '-100px' });
 
   // ✅ Store randomized light positions on client side only
   const [lightPositions, setLightPositions] = useState<{ left: string; top: string }[]>([]);
@@ -206,10 +206,14 @@ export default function CyberpunkFooter() {
               className="bg-neon-purple absolute h-0.5 w-0.5 rounded-full shadow-[0_0_2px_rgba(157,78,221,0.8)]"
               style={pos}
               initial={{ opacity: 0 }}
-              animate={isInView ? {
-                opacity: [0, 1, 0],
-                scale: [0.8, 1.2, 0.8],
-              } : { opacity: 0 }}
+              animate={
+                isInView
+                  ? {
+                      opacity: [0, 1, 0],
+                      scale: [0.8, 1.2, 0.8],
+                    }
+                  : { opacity: 0 }
+              }
               transition={{
                 duration: Math.random() * 2 + 1,
                 delay: Math.random() * 2,

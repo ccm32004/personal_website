@@ -28,7 +28,7 @@ export function useRateLimit(): RateLimitState {
 
   const handleRateLimit = (retryAfter: number) => {
     setIsRateLimited(true);
-    setRateLimitResetTime(Date.now() + (retryAfter * 1000));
+    setRateLimitResetTime(Date.now() + retryAfter * 1000);
   };
 
   const getTimeRemaining = () => {
@@ -40,6 +40,6 @@ export function useRateLimit(): RateLimitState {
   return {
     isRateLimited,
     timeRemaining: getTimeRemaining(),
-    handleRateLimit
+    handleRateLimit,
   };
-} 
+}

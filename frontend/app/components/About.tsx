@@ -54,10 +54,13 @@ export default function About() {
               variants={itemVariants}
             >
               <motion.p variants={itemVariants}>
-              Hey! I'm Cece — a full-stack software dev who loves building cool stuff that actually works! 
+                Hey! I'm Cece — a full-stack software dev who loves building cool stuff that
+                actually works!
               </motion.p>
               <motion.p variants={itemVariants}>
-              When I'm not squashing bugs or shipping features, I'm usually out hiking forest trails, finding ways to mash my hobbies with tech, or doing a little retail therapy (read: shopping as debugging for the soul).
+                When I'm not squashing bugs or shipping features, I'm usually out hiking forest
+                trails, finding ways to mash my hobbies with tech, or doing a little retail therapy
+                (read: shopping as debugging for the soul).
               </motion.p>
             </motion.div>
 

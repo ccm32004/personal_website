@@ -94,14 +94,14 @@ export default function PhotoGallery() {
               {/* Cyberpunk overlay effects */}
               <div className="absolute inset-0">
                 {/* Top glow */}
-                <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-neon-purple/10 to-transparent" />
-                
+                <div className="from-neon-purple/10 absolute inset-x-0 top-0 h-16 bg-gradient-to-b to-transparent" />
+
                 {/* Bottom darker gradient */}
-                <div className="absolute inset-x-0 bottom-0 h-full bg-gradient-to-t from-cyber-darker/60 via-transparent to-transparent" />
-                
+                <div className="from-cyber-darker/60 absolute inset-x-0 bottom-0 h-full bg-gradient-to-t via-transparent to-transparent" />
+
                 {/* Side vignettes */}
-                <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-cyber-darker/20 to-transparent" />
-                <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-cyber-darker/20 to-transparent" />
+                <div className="from-cyber-darker/20 absolute inset-y-0 left-0 w-24 bg-gradient-to-r to-transparent" />
+                <div className="from-cyber-darker/20 absolute inset-y-0 right-0 w-24 bg-gradient-to-l to-transparent" />
               </div>
             </div>
           ) : (
