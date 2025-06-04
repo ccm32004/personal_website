@@ -19,10 +19,14 @@ RATE_LIMIT_MAX_REQUESTS = 10  # Maximum 10 requests per window
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
 PINECONE_ENV = os.getenv("PINECONE_ENV", "us-east-1")
 PINECONE_INDEX_NAME = os.getenv("PINECONE_INDEX_NAME", "cece-rag")
-PINECONE_CLOUD = os.getenv("PINECONE_CLOUD", "aws")  # aws, gcp, or azure
+PINECONE_CLOUD = os.getenv("PINECONE_CLOUD", "aws")  
 
 # Model Configuration
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
 
 # CORS
-ALLOWED_ORIGINS = ["http://localhost:3000"]  # Next.js dev server 
+ALLOWED_ORIGINS = [
+    "http://localhost:3000",           # Dev
+    "https://cece.tech",               # Your main domain
+    "https://www.cece.tech"            # If you also use the www version
+]
