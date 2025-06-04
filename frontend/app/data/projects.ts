@@ -21,8 +21,7 @@ export const projects: Project[] = [
   },
   {
     title: 'Personal Website',
-    description:
-      'Modern portfolio website featuring animated components, responsive design, and smooth transitions.',
+    description: 'Modern portfolio website',
     image: '/images/portfolio.png',
     demoUrl: 'https://cecema.com',
     githubUrl: 'https://github.com/ccm32004/personal-website',
@@ -49,8 +48,7 @@ export const projects: Project[] = [
   },
   {
     title: 'AcneVue',
-    description:
-      'Web app classifying skin conditions from user photos, with TensorFlow CNN and personalized recommendations. Built at McGill Hacks.',
+    description: 'Classifies skin conditions from user photos, with TensorFlow CNN',
     image: '/images/acnevue.png',
     githubUrl: 'https://github.com/ccm32004/acnevue',
     technologies: ['TensorFlow', 'Keras', 'React', 'Flask', 'Tailwind CSS'],
@@ -58,8 +56,7 @@ export const projects: Project[] = [
   },
   {
     title: 'EcoQuest',
-    description:
-      'Gamified web app where users track eco-friendly actions and compete on a leaderboard. Auth0 authentication included.',
+    description: 'Users track eco-friendly actions, competing on a leaderboard.',
     image: '/images/ecoquest.png',
     githubUrl: 'https://github.com/ccm32004/ecoquest',
     technologies: ['React.js', 'TypeScript', 'Express.js', 'PostgreSQL'],
@@ -74,8 +71,7 @@ export const projects: Project[] = [
   },
   {
     title: 'Ehotel',
-    description:
-      'Hotel booking web app with MySQL backend, Express.js APIs, and a vanilla HTML/CSS/JS frontend.',
+    description: 'Hotel booking web app !',
     githubUrl: 'https://github.com/yourusername/ehotel',
     technologies: ['MySQL', 'Express.js', 'HTML', 'CSS', 'JavaScript'],
     featured: false,
