@@ -1,0 +1,16 @@
+# .renderignore
+__pycache__/
+.ipynb_checkpoints/
+*.pt
+*.bin
+*.h5
+*.onnx
+*.pkl
+*.log
+.env
+venv/
+.venv/
+node_modules/
+build/
+dist/
+chroma/
