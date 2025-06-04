@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Space_Grotesk, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import CyberpunkFooter from './components/CyberpunkFooter';
+import WakeBackend from './components/WakeBackend'; 
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -30,6 +31,7 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body className="bg-cyber-black text-white antialiased">
         <div className={`${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
+          <WakeBackend />
           {children}
           <CyberpunkFooter />
         </div>
