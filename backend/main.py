@@ -2,7 +2,6 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from pinecone import Pinecone, ServerlessSpec
-from sentence_transformers import SentenceTransformer
 import httpx
 from rate_limiter import RateLimiter
 import config
@@ -33,23 +32,13 @@ pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
 index_name = os.getenv("PINECONE_INDEX_NAME")
 region = os.getenv("PINECONE_ENV")
 
-# Create index if it doesn't exist
+# Connect to index (do not create index to save memory)
 if index_name not in pc.list_indexes().names():
-    print(f"Creating index '{index_name}'...")
-    pc.create_index(
-        name=index_name,
-        dimension=384,  # Assuming you're using MiniLM
-        metric="cosine",
-        spec=ServerlessSpec(cloud="gcp", region=region)
-    )
+    raise RuntimeError(f"Pinecone index '{index_name}' not found. Please create it manually.")
 
-# Connect to index
 index = pc.Index(index_name)
 
-# Initialize embedding model
-model = SentenceTransformer(config.EMBEDDING_MODEL)
-
-# Initialize async DeepInfra client
+# Async HTTP client
 di_client = httpx.AsyncClient(timeout=30.0)
 
 class Query(BaseModel):
@@ -70,6 +59,25 @@ Context:
 
 Question: {query}
 [/INST]"""
+
+async def get_embedding_from_deepinfra(text: str) -> list[float]:
+    headers = {
+        "Authorization": f"Bearer {config.DEEPINFRA_API_TOKEN}",
+        "Content-Type": "application/json"
+    }
+    data = {
+        "input": text,
+        "model": "sentence-transformers/all-MiniLM-L6-v2",
+        "encoding_format": "float"
+    }
+
+    response = await di_client.post(
+        "https://api.deepinfra.com/v1/openai/embeddings",
+        headers=headers,
+        json=data
+    )
+    response.raise_for_status()
+    return response.json()["data"][0]["embedding"]
 
 async def query_mistral(prompt: str) -> str:
     headers = {
@@ -99,7 +107,7 @@ async def query_endpoint(query: Query, request: Request):
     rate_limiter.check(request.client.host)
 
     try:
-        query_embedding = model.encode(query.query).tolist()
+        query_embedding = await get_embedding_from_deepinfra(query.query)
 
         query_response = index.query(
             vector=query_embedding,
