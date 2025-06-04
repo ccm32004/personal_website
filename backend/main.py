@@ -126,6 +126,7 @@ async def query_endpoint(query: Query, request: Request):
         }
 
     except Exception as e:
+        print("❌ ERROR in /query:", str(e))  # <- Add this log
         if isinstance(e, HTTPException):
             raise e
         raise HTTPException(status_code=500, detail=str(e))
