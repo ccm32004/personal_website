@@ -25,8 +25,10 @@ PINECONE_CLOUD = os.getenv("PINECONE_CLOUD", "aws")
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
 
 # CORS
-ALLOWED_ORIGINS = [
-    "http://localhost:3000",           # Dev
-    "https://cece.tech",               # Your main domain
-    "https://www.cece.tech"            # If you also use the www version
-]
+ALLOWED_ORIGINS = ["*"]
+# ALLOWED_ORIGINS = [
+#     "http://localhost:3000",           
+#     "https://cece.tech",             
+#     "https://www.cece.tech",
+#     "http://cece.tech", 
+# ]
