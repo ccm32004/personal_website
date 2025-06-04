@@ -24,6 +24,10 @@
 # misc
 .DS_Store
 *.pem
+chroma_store/
+chroma_store/*
+chroma.sqlite3
+
 
 # debug
 npm-debug.log*
