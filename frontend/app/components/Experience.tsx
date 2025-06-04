@@ -23,7 +23,7 @@ export default function Experience() {
               className="from-neon-purple via-neon-purple h-full w-full bg-gradient-to-b to-transparent"
               initial={{ height: 0 }}
               animate={{ height: '100%' }}
-              transition={{ duration: 1, delay: 0.5 }}
+              transition={{ duration: 1, delay: 0.4 }}
             />
           </div>
 
