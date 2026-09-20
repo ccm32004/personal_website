@@ -2,8 +2,8 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from pinecone import Pinecone, ServerlessSpec
-import httpx
 from rate_limiter import RateLimiter
+import gemini_client
 import config
 import os
 
@@ -38,87 +38,56 @@ if index_name not in pc.list_indexes().names():
 
 index = pc.Index(index_name)
 
-# Async HTTP client
-di_client = httpx.AsyncClient(timeout=30.0)
-
 class Query(BaseModel):
     query: str
 
 def create_prompt(query: str, context_chunks: list[str]) -> str:
     context = "\n\n".join(context_chunks)
-    return f"""[INST] You are Cece's AI chatbot, CeceBot. You answer questions about Cece's life, skills, and projects. Using ONLY the following context, answer the question.
+    return f"""
+You are CeceBot, Cece's AI portfolio chatbot. You answer questions about Cece's life, skills, experience, and projects using ONLY the provided context.
 
-Respond in a formal yet fabulously yassified manner — polished, articulate, but with a hint of glam. If you do not have enough information to answer based on the context, say:
+Your tone should be polished, confident, and lightly yassified:
+- Be clear, concise, and informative first.
+- Add a small touch of personality or flair, but do not overdo it.
+- Do not call the user "darling", "queen", "bestie", or similar names.
+- Avoid excessive praise, hype, or dramatic language.
+- Avoid phrases like "absolute icon", "fabulous creation", "engineering excellence", or "slay" unless they genuinely fit naturally.
+- Emojis are optional and should be used sparingly, at most one per response.
+- Prefer 2–4 sentences for simple questions.
+- Use bullet points when answering questions about multiple projects, skills, or experiences.
+- Do not repeat the same yassified phrases across responses.
+- Keep the tone professional enough for recruiters and hiring managers.
+
+If the context does not contain enough information to answer the question, respond exactly with:
 
 "I don't have enough information to answer that question. ✨"
-
-Maintain clarity, poise, and a confident tone. Remember: we're serving facts with a touch of flair. 💅📚"
 
 Context:
 {context}
 
-Question: {query}
-[/INST]"""
+Question: {query}"""
 
-async def get_embedding_from_deepinfra(text: str) -> list[float]:
-    headers = {
-        "Authorization": f"Bearer {config.DEEPINFRA_API_TOKEN}",
-        "Content-Type": "application/json"
-    }
-    data = {
-        "input": text,
-        "model": "sentence-transformers/all-MiniLM-L6-v2",
-        "encoding_format": "float"
-    }
-
-    response = await di_client.post(
-        "https://api.deepinfra.com/v1/openai/embeddings",
-        headers=headers,
-        json=data
-    )
-    response.raise_for_status()
-    return response.json()["data"][0]["embedding"]
-
-async def query_mistral(prompt: str) -> str:
-    headers = {
-        "Authorization": f"Bearer {config.DEEPINFRA_API_TOKEN}",
-        "Content-Type": "application/json"
-    }
-
-    try:
-        response = await di_client.post(
-            config.DI_API_URL,
-            headers=headers,
-            json={
-                "input": f"<s>{prompt} [/INST]",
-                "stop": ["</s>"],
-                "temperature": 0.7,
-                "max_new_tokens": 500
-            }
-        )
-        response.raise_for_status()
-        return response.json()["results"][0]["generated_text"].strip()
-
-    except httpx.HTTPError as e:
-        raise HTTPException(status_code=500, detail=f"DeepInfra API error: {str(e)}")
+@app.get("/")
+async def health():
+    return {"status": "ok"}
 
 @app.post("/query")
 async def query_endpoint(query: Query, request: Request):
     rate_limiter.check(request.client.host)
 
     try:
-        query_embedding = await get_embedding_from_deepinfra(query.query)
+        query_embedding = await gemini_client.embed_async(query.query, gemini_client.QUERY)
 
         query_response = index.query(
             vector=query_embedding,
-            top_k=3,
+            top_k=5,
             include_metadata=True
         )
 
         context_chunks = [match["metadata"]["text"] for match in query_response["matches"]]
 
         prompt = create_prompt(query.query, context_chunks)
-        response = await query_mistral(prompt)
+        response = await gemini_client.generate_async(prompt)
 
         return {
             "answer": response,
@@ -130,10 +99,6 @@ async def query_endpoint(query: Query, request: Request):
         if isinstance(e, HTTPException):
             raise e
         raise HTTPException(status_code=500, detail=str(e))
-
-@app.on_event("shutdown")
-async def shutdown_event():
-    await di_client.aclose()
 
 if __name__ == "__main__":
     import uvicorn

@@ -1,6 +1,7 @@
 import json
 from pinecone import Pinecone, ServerlessSpec
-from sentence_transformers import SentenceTransformer
+from pinecone import NotFoundException
+import gemini_client
 import config
 
 def main():
@@ -13,10 +14,6 @@ def main():
     texts = [item["text"] for item in data]
     ids = [item["id"] for item in data]
 
-    # Initialize embedding model
-    print("Initializing embedding model...")
-    model = SentenceTransformer(config.EMBEDDING_MODEL)
-
     # Initialize Pinecone v3 client
     print("Initializing Pinecone client...")
     pc = Pinecone(api_key=config.PINECONE_API_KEY)
@@ -27,7 +24,7 @@ def main():
         print(f"Creating new index: {index_name}")
         pc.create_index(
             name=index_name,
-            dimension=768,
+            dimension=config.EMBEDDING_DIMENSION,
             metric="cosine",
             spec=ServerlessSpec(
                 cloud=config.PINECONE_CLOUD,    # "aws" or "gcp"
@@ -40,13 +37,16 @@ def main():
 
     # Clear existing vectors (optional)
     print("Clearing existing vectors...")
-    index.delete(delete_all=True)
+    try:
+        index.delete(delete_all=True)
+    except NotFoundException:
+        print("No existing namespace to clear — continuing.")
 
     # Prepare and embed vectors
     print("Embedding documents...")
     vectors = []
     for item in data:
-        vector = model.encode(item["text"]).tolist()
+        vector = gemini_client.embed(item["text"], gemini_client.DOCUMENT)
         vectors.append({
             "id": item["id"],
             "values": vector,
