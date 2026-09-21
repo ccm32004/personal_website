@@ -103,7 +103,7 @@ export default function Header() {
           />
 
           {/* Floating particles */}
-          <FloatingParticles />
+          <FloatingParticles light={light} />
         </div>
       </div>
 
