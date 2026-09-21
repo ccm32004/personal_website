@@ -1,7 +1,6 @@
 # cecema.dev
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/5c800291-dd1d-4a08-9190-fc625b65b917/deploy-status)](https://app.netlify.com/sites/polite-bunny-94f823/deploys)
-[![Render Status](https://img.shields.io/website?url=https%3A%2F%2Frag-backend-cece.onrender.com%2F&label=Render&up_message=live&down_message=down)](https://rag-backend-cece.onrender.com)
 
 Personal site + CeceBot. Two apps: a Next.js frontend and a FastAPI RAG backend.
 
