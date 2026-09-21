@@ -1,5 +1,4 @@
 import Header from './components/Header';
-import Divider from './components/Divider';
 import About from './components/About';
 import Experience from './components/Experience';
 import Projects from './components/Projects';
@@ -18,7 +17,6 @@ export default function Home() {
         <About />
         <Experience />
         <ChatSection />
-        <Divider />
         <Projects />
         <SocialLinks />
       </div>

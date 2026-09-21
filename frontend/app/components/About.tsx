@@ -81,17 +81,9 @@ export default function About() {
               className="max-w-md space-y-5 text-base leading-relaxed text-gray-300 md:text-lg"
               variants={itemVariants}
             >
-              <p>
-        Hi! I&apos;m Cece, a CS student who likes building backend systems,
-        distributed pipelines, and tools that make complicated things feel a little
-        simpler. I like digging into how systems behave, finding what&apos;s slowing
-        them down, and making them better.
-      </p>
+            <p> Hi! I&apos;m Cece, a CS student interested in backend engineering, distributed systems, and observability. I like understanding how things work under the hood, solving performance problems, and making systems simpler and more efficient. </p>
 
-        <p>
-          When I&apos;m not staring at code, I&apos;m probably hiking, reading, doing
-          pilates, or spending my money online shopping.
-        </p>
+            <p> When I&apos;m not staring at code, I&apos;m probably hiking, reading, hanging out with friends, or spending too much money online shopping! </p>
             </motion.div>
 
             <div className="text-neon-purple pointer-events-none relative z-30 hidden pt-2 lg:flex justify-end">
