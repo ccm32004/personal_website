@@ -1,11 +1,12 @@
 'use client';
-import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { motion } from 'framer-motion';
+import { useRef, useState } from 'react';
 import PhotoGallery from './PhotoGallery';
+import CursorLight from './CursorLight';
 
 export default function About() {
-  const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
+  const sectionRef = useRef<HTMLElement>(null);
+  const [light, setLight] = useState<{ x: number; y: number } | null>(null);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -28,70 +29,101 @@ export default function About() {
   };
 
   return (
-    <section ref={sectionRef} className="px-6 py-24 md:px-12">
+    <section
+      ref={sectionRef}
+      className="relative overflow-hidden px-6 pt-8 pb-16 md:px-12"
+      onMouseMove={(event) => {
+        const bounds = event.currentTarget.getBoundingClientRect();
+        setLight({
+          x: event.clientX - bounds.left,
+          y: event.clientY - bounds.top,
+        });
+      }}
+      onMouseLeave={() => setLight(null)}
+    >
+      <CursorLight light={light} />
+
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          background:
+            'radial-gradient(ellipse 70% 50% at 20% 40%, rgba(157, 78, 221, 0.16), transparent 60%), radial-gradient(ellipse 55% 45% at 80% 30%, rgba(0, 255, 245, 0.1), transparent 58%), radial-gradient(ellipse 40% 40% at 70% 80%, rgba(255, 46, 99, 0.08), transparent 55%)',
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-0 opacity-[0.06]"
+        style={{
+          backgroundImage:
+            'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 255, 245, 0.55) 3px)',
+        }}
+      />
+
       <motion.div
-        className="mx-auto max-w-7xl"
+        className="relative z-20 mx-auto max-w-4xl"
         variants={containerVariants}
         initial="hidden"
-        animate={isInView ? 'visible' : 'hidden'}
+        animate="visible"
       >
-        <div className="bg-cyber-darker/60 border-neon-purple/40 shadow-neon-purple/10 relative grid gap-12 rounded-lg border p-10 backdrop-blur-sm lg:grid-cols-[1.2fr_1fr]">
-          {/* Floating HUD corner line */}
-          <div className="border-neon-purple/60 absolute -top-2 -left-2 h-10 w-10 border-t-2 border-l-2"></div>
-          <div className="border-neon-purple/60 absolute -right-2 -bottom-2 h-10 w-10 border-r-2 border-b-2"></div>
-
-          {/* Text Panel */}
-          <div className="space-y-8">
-            <motion.h2
-              variants={itemVariants}
-              className="font-cyber text-neon-purple text-glow-purple text-3xl md:text-4xl"
-            >
-              About Me
-            </motion.h2>
+        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+          <div className="space-y-6">
+            <motion.div variants={itemVariants}>
+              <p className="font-mono mb-1 text-[11px] tracking-[0.28em] text-neon-blue/70 uppercase">
+                USR // CECE
+              </p>
+              <h2 className="font-cyber text-neon-purple text-glow-purple text-3xl md:text-4xl">
+                About Me
+              </h2>
+            </motion.div>
 
             <motion.div
-              className="space-y-5 text-base leading-relaxed text-gray-300 md:text-lg"
+              className="max-w-md space-y-5 text-base leading-relaxed text-gray-300 md:text-lg"
               variants={itemVariants}
             >
-              <motion.p variants={itemVariants}>
-                Hey! I'm Cece — a full-stack software dev who loves building cool stuff that
-                actually works!
-              </motion.p>
-              <motion.p variants={itemVariants}>
-                When I'm not squashing bugs or shipping features, I'm usually out hiking forest
-                trails, finding ways to mash my hobbies with tech, or doing a little retail therapy
-                (read: shopping as debugging for the soul).
-              </motion.p>
+              <p>
+        Hi! I&apos;m Cece, a CS student who likes building backend systems,
+        distributed pipelines, and tools that make complicated things feel a little
+        simpler. I like digging into how systems behave, finding what&apos;s slowing
+        them down, and making them better.
+      </p>
+
+        <p>
+          When I&apos;m not staring at code, I&apos;m probably hiking, reading, doing
+          pilates, or spending my money online shopping.
+        </p>
             </motion.div>
 
-            {/* Buttons */}
-            <motion.div className="flex gap-4 pt-4" variants={itemVariants}>
-              <motion.a
-                href="https://drive.google.com/file/d/1omt57mkqwoD0qgg7NLhsFuKZk-sTQJb-/view?usp=sharing"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-cyber-primary border-neon-blue text-neon-blue hover:shadow-neon-blue group flex items-center gap-2 rounded border px-6 py-3 font-mono uppercase transition-all hover:scale-105"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Resume
-              </motion.a>
-              <motion.button
-                className="bg-cyber-primary border-neon-purple text-neon-purple hover:shadow-neon-purple rounded border px-6 py-3 font-mono uppercase transition-shadow"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Contact
-              </motion.button>
-            </motion.div>
+            <div className="text-neon-purple pointer-events-none relative z-30 hidden pt-2 lg:flex justify-end">
+              <div className="relative w-fit translate-x-8">
+                <p className="font-doodle -rotate-[6deg] text-xl leading-none whitespace-nowrap">
+                  click to flip thru the stack
+                </p>
+                <svg
+                  className="absolute top-1 left-[100%] h-14 w-28 overflow-visible"
+                  viewBox="0 0 96 56"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M4 44 C 28 40, 58 22, 86 10"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M70 6 L 90 8 L 78 22"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+            </div>
           </div>
 
-          {/* Holographic Photo Panel */}
-          <motion.div
-            variants={itemVariants}
-            className="border-neon-blue/30 to-cyber-dark/60 shadow-neon-blue/10 relative rounded-xl border bg-gradient-to-br from-black/30 p-2 shadow-inner backdrop-blur-sm"
-          >
-            <div className="border-neon-purple/20 pointer-events-none absolute top-0 left-0 h-full w-full rounded-xl border"></div>
+          <motion.div variants={itemVariants} className="relative lg:pl-8">
             <PhotoGallery />
           </motion.div>
         </div>

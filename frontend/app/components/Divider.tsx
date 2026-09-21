@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 export default function Divider() {
   return (
-    <div className="w-full overflow-hidden py-8">
+    <div className="w-full overflow-hidden py-3">
       <motion.div
         className="via-neon-blue h-px bg-gradient-to-r from-transparent to-transparent"
         initial={{ scaleX: 0 }}

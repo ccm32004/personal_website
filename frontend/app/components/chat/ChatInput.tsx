@@ -1,5 +1,4 @@
 'use client';
-import { motion } from 'framer-motion';
 
 interface ChatInputProps {
   input: string;
@@ -19,31 +18,32 @@ export default function ChatInput({
   onSubmit,
 }: ChatInputProps) {
   return (
-    <div className="border-neon-purple bg-cyber-darker/90 border-t p-4">
-      <form onSubmit={onSubmit} className="flex gap-4">
-        <div className="relative flex-1">
-          <span className="text-neon-purple absolute top-1/2 left-4 -translate-y-1/2">{`>`}</span>
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => onInputChange(e.target.value)}
-            placeholder={
-              isRateLimited ? `Rate limit exceeded ${timeRemaining}` : 'Ask CeceBot a question...'
-            }
-            className="border-neon-purple focus:border-neon-blue focus:ring-neon-blue w-full rounded-full border bg-black/30 py-3 pr-6 pl-8 text-gray-300 transition-colors focus:ring-1 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-            disabled={isLoading || isRateLimited}
-          />
-        </div>
-        <motion.button
-          type="submit"
-          className="bg-cyber-primary text-neon-purple border-neon-purple hover:shadow-neon-purple rounded-full border px-8 py-3 transition-shadow disabled:cursor-not-allowed disabled:opacity-50"
-          whileHover={{ scale: isRateLimited ? 1 : 1.05 }}
-          whileTap={{ scale: isRateLimited ? 1 : 0.95 }}
-          disabled={isLoading || !input.trim() || isRateLimited}
-        >
-          {isRateLimited ? `Wait ${timeRemaining}` : 'Send'}
-        </motion.button>
-      </form>
-    </div>
+    <form
+      onSubmit={onSubmit}
+      className="border-neon-blue/30 bg-black/80 flex items-center gap-3 border-t px-3 py-2.5"
+    >
+      <span className="font-mono shrink-0 text-sm text-neon-blue">
+        guest@cecebot<span className="text-gray-500">:</span>
+        <span className="text-neon-purple">~</span>
+        <span className="text-gray-500">$</span>
+      </span>
+      <input
+        type="text"
+        value={input}
+        onChange={(e) => onInputChange(e.target.value)}
+        placeholder={isRateLimited ? `rate limit ${timeRemaining}` : 'ask about cece...'}
+        className="font-mono caret-neon-blue placeholder:text-gray-600 flex-1 bg-transparent text-sm text-gray-200 outline-none disabled:cursor-not-allowed disabled:opacity-50"
+        disabled={isLoading || isRateLimited}
+        autoComplete="off"
+        spellCheck={false}
+      />
+      <button
+        type="submit"
+        className="font-mono border-neon-purple/50 text-neon-purple hover:border-neon-blue hover:text-neon-blue shrink-0 border px-3 py-1 text-[10px] tracking-[0.22em] uppercase disabled:cursor-not-allowed disabled:opacity-40"
+        disabled={isLoading || !input.trim() || isRateLimited}
+      >
+        {isRateLimited ? `WAIT ${timeRemaining}` : 'EXEC'}
+      </button>
+    </form>
   );
 }

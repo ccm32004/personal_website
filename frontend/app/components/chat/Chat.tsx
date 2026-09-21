@@ -1,7 +1,6 @@
 'use client';
 import { useState, useRef, useEffect } from 'react';
-import { AnimatePresence } from 'framer-motion';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import ChatMessage from './ChatMessage';
 import ChatInput from './ChatInput';
 import TerminalHeader from './TerminalHeader';
@@ -95,28 +94,51 @@ export default function Chat() {
   };
 
   return (
-    <div className="mx-auto w-full max-w-5xl">
+    <div className="mx-auto w-full max-w-3xl">
       <motion.div
-        className="bg-cyber-dark/80 border-neon-purple relative flex h-[600px] flex-col overflow-hidden rounded-lg border shadow-lg backdrop-blur-sm"
+        className="border-neon-purple/50 relative flex h-[520px] flex-col overflow-hidden border bg-black/80 shadow-[0_0_40px_rgba(157,78,221,0.12)]"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
+        <div className="border-neon-blue/70 absolute top-0 left-0 z-20 h-7 w-7 border-t-2 border-l-2" />
+        <div className="border-neon-purple/70 absolute right-0 bottom-0 z-20 h-7 w-7 border-r-2 border-b-2" />
+        <div
+          className="pointer-events-none absolute inset-0 z-10 opacity-[0.07]"
+          style={{
+            backgroundImage:
+              'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 255, 245, 0.35) 3px)',
+          }}
+        />
+
         <TerminalHeader />
 
-        {/* Messages Container */}
-        <div ref={messagesContainerRef} className="flex-1 space-y-4 overflow-y-auto p-6">
+        <div
+          ref={messagesContainerRef}
+          className="relative z-[1] flex-1 space-y-3 overflow-y-auto px-4 py-4"
+        >
           {messages.length === 0 && (
-            <div className="text-center text-gray-500 italic">
-              <span className="text-neon-purple">{`>`}</span> Ask me anything about Cece! I know
-              about her projects, skills, interests, and more.
+            <div className="font-mono space-y-1 text-xs text-gray-500">
+              <p>
+                <span className="text-neon-blue">[boot]</span> cecebot kernel v1.0
+              </p>
+              <p>
+                <span className="text-neon-blue">[ok]</span> rag index mounted
+              </p>
+              <p>
+                <span className="text-neon-blue">[ok]</span> awaiting query
+              </p>
+              <p className="pt-3 text-gray-400">
+                <span className="text-neon-purple">{'>'}</span> ask about projects, skills,
+                experience
+              </p>
             </div>
           )}
           <AnimatePresence>
             {messages.map((message, index) => (
               <ChatMessage key={index} text={message.text} sender={message.sender} />
             ))}
-            {isLoading && <ChatMessage text="Thinking..." sender="bot" />}
+            {isLoading && <ChatMessage text="thinking..." sender="bot" />}
           </AnimatePresence>
         </div>
 

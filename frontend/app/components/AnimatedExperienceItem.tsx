@@ -3,70 +3,76 @@ import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 
 interface ExperienceItemProps {
+  index: number;
   title: string;
   company: string;
+  location: string;
   date: string;
   description: string;
   technologies: string[];
-  isLeft?: boolean;
 }
 
 export default function AnimatedExperienceItem({
+  index,
   title,
   company,
+  location,
   date,
   description,
   technologies,
-  isLeft = true,
 }: ExperienceItemProps) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const isInView = useInView(ref, { once: true, margin: '-80px' });
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, x: isLeft ? -50 : 50 }}
-      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: isLeft ? -50 : 50 }}
-      transition={{ duration: 0.8, ease: 'easeOut', delay: 0.5 }}
-      className={`flex w-full ${isLeft ? 'justify-start' : 'justify-end'}`}
+      initial={{ opacity: 0, y: 24 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+      transition={{ duration: 0.6, ease: 'easeOut', delay: 0.08 * index }}
+      className="relative grid grid-cols-[12px_1fr] gap-4"
     >
-      <div className={`relative w-full md:w-1/2 ${isLeft ? 'md:pr-12' : 'md:pl-12'}`}>
-        {/* Glowing dot */}
+      <div className="relative flex flex-col items-center">
+        <div className="border-neon-blue bg-neon-blue/30 shadow-neon-blue z-10 mt-5 h-2.5 w-2.5 rotate-45 border" />
+        <div className="from-neon-purple via-neon-purple/70 mt-1 w-px flex-1 bg-gradient-to-b to-neon-purple/30" />
+      </div>
+
+      <article className="border-neon-purple/35 bg-cyber-darker/70 hover:border-neon-blue hover:shadow-neon-purple/40 relative mb-6 overflow-hidden border px-4 py-3.5 backdrop-blur-sm transition-all duration-200 hover:-translate-y-1">
+        <div className="border-neon-blue/70 absolute top-0 left-0 h-5 w-5 border-t-2 border-l-2" />
+        <div className="border-neon-purple/70 absolute right-0 bottom-0 h-5 w-5 border-r-2 border-b-2" />
         <div
-          className={`absolute top-0 ${isLeft ? 'right-0 md:-right-3' : 'left-0 md:-left-3'} h-6 w-6`}
-        >
-          <div className="bg-neon-purple shadow-glow-purple absolute top-1/2 left-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 transform rounded-full" />
-        </div>
+          className="pointer-events-none absolute inset-0 opacity-[0.06]"
+          style={{
+            backgroundImage:
+              'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 255, 245, 0.35) 3px)',
+          }}
+        />
 
-        {/* Content */}
-        <div className="bg-cyber-darker/80 border-neon-purple/30 rounded-lg border p-6 shadow-lg backdrop-blur-sm">
-          <h3 className="font-cyber text-neon-purple mb-2 text-xl">{title}</h3>
-          <div className="mb-4 flex items-center justify-between">
-            <span className="text-neon-blue font-mono">{company}</span>
-            <span className="text-sm text-gray-400">{date}</span>
+        <div className="relative">
+          <div className="flex items-start justify-between gap-3">
+            <h3 className="font-cyber text-neon-purple text-glow-purple text-lg tracking-wide uppercase">
+              {company}
+            </h3>
+            <span className="font-mono shrink-0 pt-1 text-[10px] text-gray-400">{date}</span>
           </div>
-          <p className="mb-4 text-gray-300">{description}</p>
+          <p className="font-mono mt-1 text-[10px] tracking-[0.14em] text-neon-blue/80 uppercase">
+            {title} · {location}
+          </p>
 
-          {/* Tech Stack Tags */}
-          <div className="flex flex-wrap gap-2">
-            {technologies.map((tech, i) => (
-              <motion.span
-                key={i}
-                className="bg-cyber-primary/30 text-neon-purple border-neon-purple/50 rounded-full border px-2 py-1 text-xs"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.2, delay: i * 0.1 }}
-                whileHover={{
-                  scale: 1.1,
-                  boxShadow: '0 0 10px rgba(157, 78, 221, 0.3)',
-                }}
+          <p className="mt-2.5 text-sm leading-relaxed text-gray-300">{description}</p>
+
+          <div className="mt-3 flex flex-wrap gap-1.5">
+            {technologies.map((tech) => (
+              <span
+                key={tech}
+                className="border-neon-blue/40 bg-cyber-black/60 font-mono text-neon-blue px-2 py-0.5 text-[10px] tracking-widest uppercase"
               >
                 {tech}
-              </motion.span>
+              </span>
             ))}
           </div>
         </div>
-      </div>
+      </article>
     </motion.div>
   );
 }

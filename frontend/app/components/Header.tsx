@@ -2,6 +2,7 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import FloatingParticles from './Particles';
+import CursorLight from './CursorLight';
 
 export default function Header() {
   const [firstLine, setFirstLine] = useState('');
@@ -11,6 +12,7 @@ export default function Header() {
   const [isFirstLineDone, setIsFirstLineDone] = useState(false);
   const [isSecondLineDone, setIsSecondLineDone] = useState(false);
   const [showCursor, setShowCursor] = useState(true);
+  const [light, setLight] = useState<{ x: number; y: number } | null>(null);
 
   useEffect(() => {
     let currentIndex = 0;
@@ -59,7 +61,17 @@ export default function Header() {
   }, [isSecondLineDone]);
 
   return (
-    <header className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden">
+    <header
+      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden"
+      onMouseMove={(event) => {
+        const bounds = event.currentTarget.getBoundingClientRect();
+        setLight({
+          x: event.clientX - bounds.left,
+          y: event.clientY - bounds.top,
+        });
+      }}
+      onMouseLeave={() => setLight(null)}
+    >
       {/* Animated background */}
       <div className="absolute inset-0 z-0">
         <div className="bg-cyber-black absolute inset-0">
@@ -95,8 +107,10 @@ export default function Header() {
         </div>
       </div>
 
+      <CursorLight light={light} />
+
       {/* Content */}
-      <div className="relative z-10">
+      <div className="relative z-20">
         <motion.h1
           className="font-cyber text-neon-blue relative mb-4 flex flex-col items-start text-left text-4xl md:text-6xl"
           initial={{ opacity: 0, y: 20 }}

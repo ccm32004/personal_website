@@ -36,6 +36,7 @@ module.exports = {
       fontFamily: {
         cyber: ['Space Grotesk', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
+        doodle: ['var(--font-caveat)', 'cursive'],
       },
       animation: {
         'glow-pulse': 'glow 2s ease-in-out infinite',

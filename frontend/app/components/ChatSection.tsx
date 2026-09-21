@@ -1,21 +1,26 @@
 'use client';
-import { FaRobot } from 'react-icons/fa';
 import Chat from './chat/Chat';
+import StatusDot from './StatusDot';
+import useBackendStatus from '../hooks/useBackendStatus';
 
 export default function ChatSection() {
-  return (
-    <section className="relative overflow-hidden py-24">
-      {/* Ombre background */}
-      <div className="bg-gradient-radial from-neon-purple/50 via-neon-blue/60 to-cyber-darker absolute inset-0"></div>
-      <div className="via-neon-purple/30 absolute inset-0 bg-gradient-to-br from-transparent to-transparent"></div>
+  const status = useBackendStatus();
 
-      {/* Content */}
-      <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-12 flex items-center justify-center gap-4">
-          <FaRobot className="text-neon-purple text-4xl" />
-          <h2 className="font-cyber text-neon-purple text-glow-purple text-3xl md:text-4xl">
-            Chat with CeceBot
-          </h2>
+  return (
+    <section className="relative overflow-hidden pt-12 pb-24">
+      <div className="from-neon-purple/20 via-cyber-black absolute inset-0 bg-gradient-to-b to-cyber-black" />
+
+      <div className="relative mx-auto max-w-3xl px-4 sm:px-6">
+        <div className="mb-8 flex flex-col items-center gap-3">
+          <p className="font-mono text-[11px] tracking-[0.28em] text-neon-blue/70 uppercase">
+            SYS // CECEBOT
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <h2 className="font-cyber text-neon-purple text-glow-purple text-3xl md:text-4xl">
+              Chat with CeceBot
+            </h2>
+            <StatusDot status={status} />
+          </div>
         </div>
         <Chat />
       </div>

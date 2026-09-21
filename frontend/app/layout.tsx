@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Space_Grotesk, JetBrains_Mono } from 'next/font/google';
+import { Space_Grotesk, JetBrains_Mono, Caveat } from 'next/font/google';
 import './globals.css';
 import CyberpunkFooter from './components/CyberpunkFooter';
 import WakeBackend from './components/WakeBackend'; 
@@ -12,6 +12,11 @@ const spaceGrotesk = Space_Grotesk({
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
   variable: '--font-jetbrains-mono',
+});
+
+const caveat = Caveat({
+  subsets: ['latin'],
+  variable: '--font-caveat',
 });
 
 export const metadata: Metadata = {
@@ -30,7 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className="bg-cyber-black text-white antialiased">
-        <div className={`${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
+        <div className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} ${caveat.variable}`}>
           <WakeBackend />
           {children}
           <CyberpunkFooter />

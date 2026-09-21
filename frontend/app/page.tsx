@@ -15,10 +15,9 @@ export default function Home() {
       {/* Main Content */}
       <div className="relative">
         <Header />
-        <Divider />
         <About />
-        <ChatSection />
         <Experience />
+        <ChatSection />
         <Divider />
         <Projects />
         <SocialLinks />

@@ -9,33 +9,53 @@ export interface Experience {
 
 export const experiences: Experience[] = [
   {
-    title: 'Software Developer',
-    company: 'RBC',
+    title: 'Software Developer Intern',
+    company: 'Intuit',
     location: 'Toronto, ON',
-    period: 'Jan 2025 – Apr 2025',
+    period: 'Jan 2026 — Apr 2026',
     description: [
-      'Worked on the Direct Investing mobile team, building SwiftUI trading screens, integrating analytics, and writing CI-ready tests.',
+      'Built and optimized streaming pipeline infrastructure, from Pulsar connectors to automated performance benchmarking.',
     ],
-    technologies: ['Swift', 'SwiftUI', 'MVVM', 'XCTest', 'Jenkins', 'GitHub Actions'],
+    technologies: ['Java', 'Apache Pulsar', 'Kubernetes', 'Prometheus'],
   },
   {
-    title: 'Software Developer',
-    company: 'Lim Geomatics',
-    location: 'Ottawa, ON',
-    period: 'May 2024 – Aug 2024',
+    title: 'Software Developer Intern',
+    company: 'Magnet Forensics',
+    location: 'Waterloo, ON',
+    period: 'Sept 2025 — Dec 2025',
     description: [
-      'Contributed to the cross-platform mobile team by building secure location-based apps and automating file parsing with custom plugins.',
+      'Built cloud infrastructure and CI/CD tooling that made distributed services easier to test, deploy, and monitor.',
     ],
-    technologies: ['Flutter', 'Kotlin', 'Swift', 'ArcGIS', 'Hive DB', 'AES-CBC Encryption'],
+    technologies: ['AWS', 'LocalStack', 'Jenkins', 'DynamoDB', 'CloudWatch'],
+  },
+  {
+    title: 'iOS Software Developer Intern',
+    company: 'RBC',
+    location: 'Toronto, ON',
+    period: 'Jan 2025 — Apr 2025',
+    description: [
+      'Built and modernized iOS features for RBC Direct Investing, including SwiftUI migrations, analytics, and automated testing.',
+    ],
+    technologies: ['Swift', 'SwiftUI', 'MVVM', 'XCTest', 'Jenkins'],
+  },
+  {
+    title: 'Mobile Software Developer Intern',
+    company: 'Remsoft',
+    location: 'Ottawa, ON',
+    period: 'May 2024 — Aug 2024',
+    description: [
+      'Built cross-platform geospatial features and native mobile plugins for offline field workflows.',
+    ],
+    technologies: ['Flutter', 'Kotlin', 'Swift', 'AES-CBC'],
   },
   {
     title: 'Software Developer',
     company: 'Ontario Government',
     location: 'Toronto, ON',
-    period: 'May 2023 – Sept 2023',
+    period: 'May 2023 — Sept 2023',
     description: [
-      'Worked in the Judiciary IT Systems branch automating archival workflows and enhancing web platform security with Python and .NET.',
+      'Built secure internal tools for Ontario’s judiciary, spanning app security, automation, and system modernization.',
     ],
-    technologies: ['Python', 'Selenium', 'C#', '.NET', 'Entity Framework Core'],
+    technologies: ['Python', 'Selenium', 'C#', '.NET'],
   },
 ];
